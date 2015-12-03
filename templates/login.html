@@ -1,0 +1,19 @@
+{%extends 'things_base.tpl'%}
+{%block header%}
+{%include 'header_menu.inc'%}
+<div class="page-header"><h1>Login</h1></div>
+{%endblock header%}
+{%block content%}
+<form method="POST">
+<div style="margin:40px;">
+<span class="text-danger">{{msg.main}}</span>
+<p>
+	Email:<br /><input type="text" id="email" name="email"><span class="text-danger">{{msg.email}}</span>
+</p>
+<p>
+	password:<br /><input type="password" id="password" name="password"><span class="text-danger">{{msg.password}}</span>
+</p>
+<button type="submit" class="btn btn-md btn-primary">Login</button>
+</form>
+</div>
+{%endblock content%}

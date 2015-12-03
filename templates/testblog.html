@@ -1,0 +1,53 @@
+{%extends "rio4plan_base.tpl"%}
+{%block init_js_script%}
+//var key=localStorage.rio4plan_google_access_token;
+var key="AIzaSyCXmqvZXgyhgTDxZMIHd1tkwy2dPeYbPoU"; //browser key
+$.ajax({
+	url:"https://www.googleapis.com/blogger/v3/blogs/6465883963116777439/posts?key="+key,
+	method:'GET',
+}).done(function(data){
+	$('#hello').html(data.name);
+});
+
+/*
+blog id (test) 6465883963116777439
+GET LIST
+https://www.googleapis.com/blogger/v3/blogs/6465883963116777439/posts?key="+key
+GET LIST with labels (tag)
+https://www.googleapis.com/blogger/v3/blogs/6465883963116777439/posts?labels=group1&key={YOUR_API_KEY}
+GET LIST with startdate and end date (ช่วงเวลา)
+GET https://www.googleapis.com/blogger/v3/blogs/6465883963116777439/posts?endDate=2015-08-09T06%3A00%3A00%2B07%3A00&startDate=2015-08-08T06%3A00%3A00%2B07%3A00&key={YOUR_API_KEY}
+
+
+GET post
+https://www.googleapis.com/blogger/v3/blogs/6465883963116777439/posts/3755250397713289020?key={YOUR_API_KEY}
+
+POST new https://www.googleapis.com/blogger/v3/blogs/6465883963116777439/posts?fetchBody=true&fetchImages=true&key={YOUR_API_KEY}
+ 
+{
+ "content": "Hello world",
+ "title": "this insert by service",
+ "labels": [
+  "group1"
+ ]
+}
+
+patch
+PATCH https://www.googleapis.com/blogger/v3/blogs/6465883963116777439/posts/3755250397713289020?fetchBody=true&fetchImages=true&publish=true&key={YOUR_API_KEY}
+ 
+{
+ "content": "patch test Google",
+ "title": "test patch"
+}
+
+Delete POST
+https://www.googleapis.com/blogger/v3/blogs/6465883963116777439/posts/3755250397713289020?key={YOUR_API_KEY}
+
+*/
+{%endblock init_js_script%}
+{%block content%}
+<pre>
+<div id="hello"></div>
+</pre>
+
+{%endblock content%}

@@ -1,0 +1,14 @@
+{%extends '_base.html'%}
+{%block title%}staion list{%endblock%}
+{%block body%}
+<table class="table">
+<thead>
+<tr><th>station</th><th>agency</th><th>lat,lng</th></tr>
+</thead>
+<tbody>
+{%for tm in tm_list%}
+<tr><td>{{tm.station}}</td><td>{{tm.agency}}</td><td>{{tm.lat}},{{tm.lng}}</td></tr>
+{%endfor%}
+<tbody>
+</table>
+{%endblock%}

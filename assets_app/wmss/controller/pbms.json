@@ -1,0 +1,13 @@
+{
+	"meta":{
+		
+	},
+	"data":{
+		"pay_api":"http://bid.rid.go.th/pbms/latte/api/v1/office/4/pays/?bsource_id=109",
+		"gaugeConfig":
+		{
+			"setup_red_value":90,
+			"setup_yellow_value":95
+		}
+	}
+}

@@ -1,0 +1,28 @@
+{%extends 'rio4plan_base.tpl'%}
+{%block title%}ส่วนแผนงาน สำนักงานชลประทานที่ 4-หน้าหลัก{%endblock title%}
+{%block style%}
+{{block.super}}
+
+@font-face {
+    font-family: designFont;
+    src: url('{{asset_url}}rio4plan/fonts/ThaiSansNeue-Regular.otf');
+}
+@font-face {
+    font-family: designFontBold;
+    src: url('{{asset_url}}rio4plan/fonts/ThaiSansNeue-Bold.otf');
+}
+.designFont{
+font-family: designFont;
+font-size:14px;
+}
+
+{%endblock style%}
+{%block js_script%}
+{{block.super}}
+{%endblock js_script%}
+	
+{%block content%}
+<div ng-controller="content" id="content">{{ng_swan|safe}}
+<div id="widget_content"></div>
+</div>
+{%endblock content%}

@@ -1,0 +1,143 @@
+{%extends 'rio4plan_base.tpl'%}
+{%block title%}ส่วนแผนงาน สำนักงานชลประทานที่ 4-ระบบติดตามฯ{%endblock title%}
+{%block style%}
+{{block.super|safe}}
+
+@font-face {
+    font-family: designFont;
+    src: url('{{asset_url}}rio4plan/fonts/ThaiSansNeue-Regular.otf');
+}
+@font-face {
+    font-family: designFontBold;
+    src: url('{{asset_url}}rio4plan/fonts/ThaiSansNeue-Bold.otf');
+}
+.designFont{
+font-family: designFont;
+font-size:14px;
+}
+label{font-family: designFont;}
+#setuppanel{
+	font-family: designFont;
+	font-size:1.9em;
+	color:#e8ecec;
+	background-color:black
+}
+#setuppanel input{
+	color:black;
+}
+.dg {
+	display: inline-block;
+	width: 200px;
+}
+.dg {
+	display: inline-block;
+	width: 150px;
+}
+
+.dialgauge-value {
+			font-family: designFont;
+            font-size: 25px;
+            font-weight: 0;
+            stroke: #626363;
+			stroke-width:1px;
+            fill: #626363;
+}
+
+        .dialgauge-unit {
+            font-size: 12px;
+            stroke: #958f85;
+            fill: #958f85;
+        }
+
+        .dialgauge-title {
+			font-family: designFont;
+            font-size: 16px;
+            stroke:#958f85;
+            fill: #958f85;
+         	stroke-width:1px;
+			word-spacing:0;
+        }
+        .dg1 {
+            display: inline-block;
+            width: 300px;height:200px;
+			padding:5px;
+        }
+        .dg2 {
+            display: inline-block;
+            width: 200px;height:150px;
+			padding:5px;
+        }
+.gauge{width:300px;height:300px;}
+.gauge1{width:200px;height:200px;}
+{%endblock style%}
+{%block extra_script_tag%}
+{{block.super|safe}}
+<script type="text/javascript" src="{{asset_url}}swan/js/sliiide.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/raphael-min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/justgage/justgage-1.1.0.min.js"></script>
+{%endblock extra_script_tag%}
+
+{%block content%}
+
+<div ng-controller="pbms" id="pbms">{{ng_swan|safe}}
+{%raw%}
+<ol class="breadcrumb">
+	<li><a href="{{swan.root_url}}page/mainpage.html">หน้าหลัก</a></li>
+	<li>PBMS</li>
+</ol>
+<div class="page-header" style="font-family:designFont;">
+	<h1>ข้อมูลจากระบบการติดตามและรายงานผลการปฏิบัติงานและการใช้จ่ายงบประมาณ</h1>
+{{x}}
+</div>
+
+<!--Slide Bar-->
+<button id="forCallSlideBar" class="btn btn-md btn-primary no-print"><span class="glyphicon glyphicon-cog"></span></button>
+
+<div id="setuppanel">
+	ตั้งค่า
+	<hr/>
+	<h3>ระบุช่วงค่าสำหรับสีของGauge</h3>
+	<small class="text-muted">*กำหนดค่าสูงสุดที่จะให้แสดงผลสี ใช้ตัวเลข1-100 เท่านั้น</small>
+	<p>สีเขียว: {{gaugeConfig.setup_yellow_value}} - 100</p>
+	<p>สีเหลือง:{{gaugeConfig.setup_red_value}} - <input type="text" ng-model="gaugeConfig.setup_yellow_value"></p>
+	<p>สีแดง:0 - <input type="text" ng-model="gaugeConfig.setup_red_value"></p>
+	<h3>ระบุ Api สำหรับดึงข้อมูลเบิกจ่ายจากระบบติดตามฯ</h3>
+	<p>Api:<input type="text" ng-model="gaugeConfig.api_pay"></p>
+	<button class="btn btn-xs btn-primary" ng-click="saveGaugeConfig()">save</button>
+</div>
+<!--End Slide Bar-->
+
+
+<div id="mainprogram" class="row">
+<div id="mainpanel" class="col-md-12 col-sm-12 col-xs-12">
+<div class="panel" style="margin:10px;">
+<div class="row">
+
+<div class="col-md-1"> </div>
+	<div class="col-md-5">
+		<center >
+			<div class="dg1" id="gauge">
+			
+			</div>
+		</center>
+	</div><!--col-->
+	<div class="col-md-5" style="font-family:designFont;font-size:3em;">
+		<label>สำนักงานชลประทานที่ 4</label>
+		<table class="table">
+			<tr><td class="text-muted ">เบิกจ่าย รวม:</td><td style="text-align:right;">{{g_pay|currency:''}} <small class="text-muted">บาท</small></td></tr>
+			<tr><td class="text-muted "> จัดสรร รวม:</td><td style="text-align:right;">{{g_transfer|currency:''}} <small class="text-muted">บาท</small></td></tr>
+		</table>
+	</div><!--col-->
+	<div class="col-md-1"> </div>
+</div><!--row-->
+<div class="row"><hr width="300px"/></div>
+<div id="subGag"></div>
+<br/><br/>
+
+</div><!--panel-->
+</div><!--mainpanel-->
+</div><!--mainprogram-->
+
+</div><!--ng-controller=pbms-->
+{%endraw%}
+{%endblock content%}

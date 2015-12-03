@@ -1,0 +1,105 @@
+{%extends 'rio4plan_base.tpl' %}
+{%block extra_style_tag%}
+
+{%endblock extra_style_tag%}
+{%block style%}
+{{block.super}}
+
+@font-face {
+    font-family: designFont;
+    src: url('{{asset_url}}rio4plan/fonts/ThaiSansNeue-Regular.otf');
+}
+@font-face {
+    font-family: designFontBold;
+    src: url('{{asset_url}}rio4plan/fonts/ThaiSansNeue-Bold.otf');
+}
+.designFont{
+font-family: designFont;
+font-size:14px;
+}
+.dg {
+            display: inline-block;
+            width: 140px;
+}
+
+.dialgauge-value {
+			font-family: designFont;
+            font-size: 42px;
+            font-weight: 0;
+            stroke: #958f85;
+			stroke-width:1px;
+            fill: #958f85;
+			
+}
+
+        .dialgauge-unit {
+            font-size: 12px;
+            stroke: #958f85;
+            fill: #958f85;
+        }
+
+        .dialgauge-title {
+			font-family: designFont;
+            font-size: 15px;
+            stroke:#958f85;
+            fill: #958f85;
+         	stroke-width:1px;
+			word-spacing:0;
+        }
+
+.dg1 {
+            display: inline-block;
+            width: 140px;
+}
+
+{%endblock style%}
+{%block extra_script_tag%}
+{{block.super|safe}}
+<script type="text/javascript" src="{{asset_url}}swan/js/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/angular-dialgauge.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/raphael-min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/justgage/justgage-1.1.0.min.js"></script>
+
+{%endblock extra_script_tag%}
+{%block init_js_script%}
+{{block.super}}
+
+{%endblock init_js_script%}
+
+{%block header%}
+{%endblock header%}
+{%block body_attrs%}ng-app="rio4planApp"{%endblock body_attrs%}
+{%block body%}
+<div ng-controller="test">
+
+{%raw%}
+<div class="dg1">
+<ng-dial-gauge id="gauge6"
+	scale-min="0"
+	scale-max="100"
+	border-width="0"
+	ng-model="g_value"
+	bar-color="#437d82"
+	bar-color-end="#ae7508"
+	bar-width="10"
+	angle="180"
+	rotate="180"
+	scale-minor-length="0"
+                                   scale-major-length="0"
+                                   line-cap="butt"
+                                   percent="true"
+    style="stroke:blue;font-weight:100;width:150px;"
+	title="ทดสอบ"
+	units="%"
+	>
+	
+                    </ng-dial-gauge>
+</div>
+<input type="text" ng-model="g_value" ng-pattern="/^\d+$/">
+<div id="gauge"></div><button ng-click="clickrefresh();">test</button>
+{%endraw%}
+</div>
+{%endblock body%}
+{%block extra_js_script%}
+
+{%endblock extra_js_script%}

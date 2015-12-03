@@ -1,0 +1,157 @@
+{%extends 'rio4plan_base.tpl'%}
+{%block title%}ส่วนแผนงาน สำนักงานชลประทานที่ 4-หน้าหลัก{%endblock title%}
+{%block style%}
+{{block.super}}
+#mainPage{padding:10px;}
+@font-face {
+    font-family: designFont;
+    src: url('{{asset_url}}rio4plan/fonts/ThaiSansNeue-Regular.otf');
+}
+@font-face {
+    font-family: designFontBold;
+    src: url('{{asset_url}}rio4plan/fonts/ThaiSansNeue-Bold.otf');
+}
+.designFont{
+font-family: designFont;
+font-size:14px;
+}
+.gauge{width:200px;height:200px;}
+.dg {
+	display: inline-block;
+	width: 200px;
+}
+
+.dialgauge-value {
+			font-family: designFont;
+            font-size: 60px;
+            font-weight: 0;
+            stroke: #626363;
+			stroke-width:1px;
+            fill: #626363;
+}
+
+        .dialgauge-unit {
+            font-size: 12px;
+            stroke: #958f85;
+            fill: #958f85;
+        }
+
+        .dialgauge-title {
+			font-family: designFont;
+            font-size: 15px;
+            stroke:#958f85;
+            fill: #958f85;
+         	stroke-width:1px;
+			word-spacing:0;
+        }
+        .dg1 {
+            display: inline-block;
+            width: 200px;height:150px;
+			padding:5px;
+        }
+.widget_blog{font-family:designFont;font-size:1.6em;}
+.widget_blog kbd{font-size:11px;}
+.widget_blog .blog_title{font-size:1.4em;}
+.widget_blog .blog_list{background-color:#acb6b7;margin:5px 10px;}
+.widget_blog_fast{font-family:designFont;font-size:1.4em;}
+{%endblock style%}
+{%block extra_script_tag%}
+{{block.super|safe}}
+<script type="text/javascript" src="{{asset_url}}swan/js/sliiide.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/raphael-min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/justgage/justgage-1.1.0.min.js"></script>
+{%endblock extra_script_tag%}
+{%block init_js_script%}
+  
+{%endblock init_js_script%}
+{%block js_script%}
+{{block.super}}
+{%endblock js_script%}
+{%block content%}
+<div ng-controller="mainPage" id="mainPage">{{ng_swan|safe}}
+{%raw%}
+<ol class="breadcrumb">
+	<li>หน้าหลัก</li>
+</ol>
+<div class="row">
+	<div class="col-md-12" id="widget_headline"></div>
+</div>
+<div class="row" style="overflow-y:hidden;">
+	<div class="col-md-3 col-sm-6">
+		<div id="widget_boss"></div>
+	</div>
+	<div class="col-md-3 col-sm-6">
+		<div id="widget_pbms" class="panel" style="background:url('{{swan.asset_url}}rio4plan/images/background_pbms.png');background-color:#fff;background-repeat: no-repeat;background-size:100% 100%;">
+		<center>
+			<div class="dg1" id="gauge">
+			
+			</div>
+			<div id="gg1_label">Loading...<small class="text-muted">from RID_PBMS</small></div>
+		</center><div class="pull-right text-muted">...<a class="text-muted" href="{{swan.root_url}}page/pbms.html">more</a></div>
+		</div>
+	</div>
+	<div class="col-md-3 col-sm-6">
+		<div id="widget_about"></div>
+	</div>
+	<div class="col-md-3 col-sm-6">
+		<div id="d" ng-if="swan.islogin">
+		<div class="panel">
+		<h4 class="text-primary"><small>you'r </small><strong>{{swan.googleUser}}</strong>
+			<small>-<a ng-click="logout()" class="btn btn-xs btn-primary">logout</a> 
+			<span id="login_status"></span></small>
+		</h4>
+		<br/>
+		<ul >
+			<li ng-repeat="a_youcan in swan.youcan"><a href="{{a_youcan.link}}" target="{{a_youcan.target || '_self'}}">{{a_youcan.name}}</a></li>
+		</ul>
+		</div>
+		</div><!--islogin-->
+	</div>
+</div><!--row1-->
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-12 widget_blog">
+	<!--recenly blog-->
+	<div class="panel">
+		<div class="panel-heading">
+			เรื่องล่าสุด
+		</div>
+		<div class="panel-body" style="overflow-y:scroll;max-height:400px;">
+			{{blog_status}}
+			<ul>
+			<div ng-repeat="item in blogs.items" class="blog_list">
+				<span class="pull-right" style="font-size:50px;color:#e8f1f2;"><a ng-click="item.collapse=!item.collapse;" ><span class="glyphicon glyphicon-chevron-right"> </span></a></span>
+				<span class="blog_title">{{ item.title }}</span><br/>
+				<span ng-repeat="label in item.labels"><kbd>{{label}}</kbd> </span>
+				<span class="text-muted" style="font-size:14px;">{{item.published|date:'dd/MM/yyyy เวลาHH:mm น.'}}  <a href="{{item.url}}"  target="_blank"> <span class="glyphicon glyphicon-globe"> </span> </a></span>
+			<div collapse="item.collapse"><p><div class="well well-xs" ng-bind-html="item.content"></div></p></div>
+			</div><!--each title-->
+			</ul>
+		</div>
+	</div><!--panel-->
+</div><!--col1 row2-->
+<div class="col-md-6 col-sm-6 col-xs-12 widget_blog_fast">
+
+	<div class="panel">
+		<div class=panel-heading>เรื่องด่วนแจ้งให้ดำเนินการ
+		</div>
+	<div class="panel-body" style="overflow-y:scroll;height:400px;
+	background: url('http://rio4plan.com/main/assets/myfiles/fast.jpg') no-repeat;
+			    -webkit-background-size: cover; /* For WebKit*/
+			    -moz-background-size: cover;    /* Mozilla*/
+			    -o-background-size: cover;      /* Opera*/
+			    background-size: cover;         /* Generic*/
+	"><br />
+	<div class="pull-right" style="margin-right:5px;">
+	<div ng-repeat="blog_fast in blogs_fast">
+		<h3><a href="#" tooltip-html="blog_fast.content">{{blog_fast.title}} </a></h3>
+		<small class="text-muted">{{blog_fast.published|date:'dd/MM/yyyy เวลาHH:mm น.'}} <a href="{{blog_fast.url}}"  target="_blank"> <span class="glyphicon glyphicon-globe"> </span> </a></small>
+	</div>
+	</div>
+	
+	</div><!--panel-body-->
+	</div><!--panel-->
+</div><!--col2 row2-->
+</div><!--row2-->
+</div><!--end controller mainpage-->
+{%endraw%}
+{%endblock content%}

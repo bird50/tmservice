@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head {{head_attrs}}>
+<title>{%block title%}{{title}}{%endblock %}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="{{generator}}" />
+<meta name="robots" content="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block style_tag %}
+
+<link href="{{asset_url}}swan/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="{{asset_url}}swan/css/ng-tags-input.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block extra_style_tag %}
+{% endblock  %}
+<style>
+{%block style%}
+{%endblock %}
+</style>
+{% block script_tag %}
+<script type="text/javascript" src="{{asset_url}}swan/js/angular.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/nunjucks.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/bootbox.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+<script type="text/javascript" src="{{asset_url}}swan/js/ng-tags-input.min.js"></script>
+
+
+<script type="text/javascript" src="{{asset_url}}swan/js/swan.js"></script>
+{% endblock  %}
+{%block extra_script_tag %}
+
+{%endblock  %}
+<script>
+$(function(){
+{%block init_js_script%}
+
+//alert('init');	
+
+{%endblock %}
+});
+
+{%block js_script%}
+
+{%endblock %}
+</script>
+</head>
+<body  {%block body_attrs%}{{body_attrs}}{%endblock %}>
+{%block head_menu%}
+{%endblock %}
+{%block body %}
+Hello world !!!
+{%endblock %}
+<script>
+{%block extra_js_script%}
+{%endblock %}
+</script>
+</body>
+</html>
